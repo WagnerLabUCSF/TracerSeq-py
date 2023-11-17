@@ -255,10 +255,12 @@ def process_tracerseq_csv_to_counts(path_to_run_params_yaml):
     print('Done saving counts csv file (step 6/6)')
 
     # Print and save run info
-    df_params = pd.DataFrame.from_dict(run_params, orient='index', columns=[''], dtype='object')
-    df_params.to_csv(run_params['Save File Path'] + run_params['File Prefix'] +'_run_params.csv', index=True, header=False)
     df_log = pd.DataFrame.from_dict(run_log, orient='index', columns=[''], dtype='object')
     df_log.to_csv(run_params['Save File Path'] + run_params['File Prefix'] + '_log.csv', index=True, header=False)
+    #df_params = pd.DataFrame.from_dict(run_params, orient='index', columns=[''], dtype='object')
+    #df_params.to_csv(run_params['Save File Path'] + run_params['File Prefix'] +'_run_params.csv', index=True, header=False)
+    with open(run_params['Save File Path'] + run_params['File Prefix']+'.yml', 'w') as outfile:
+      yaml.dump(run_params, outfile, default_flow_style=False)
 
     return df_log
 
