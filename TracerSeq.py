@@ -18,8 +18,8 @@ import clinc.clinc_util as clinc
 def process_tracerseq_csv_to_counts(run_params):
 
     # Configure some global settings
-    matplotlib.rcParams['figure.dpi'] = 120
-    matplotlib.rcParams['figure.figsize'] = [4,4]
+    matplotlib.rcParams['figure.dpi'] = 300
+    matplotlib.rcParams['figure.figsize'] = [5,5]
     warnings.simplefilter(action='ignore', category=FutureWarning)
 
     # Step 1: Import the entire set of TracerSeq CSV file(s) into a dataframe, appending library prefices to CB columns
