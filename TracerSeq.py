@@ -17,6 +17,8 @@ import clinc.clinc_util as clinc
 
 def process_tracerseq_csv_to_counts(run_params):
 
+    print('Processing TracerSeq counts from ')
+
     # Configure some global settings
     matplotlib.rcParams['figure.dpi'] = 200
     matplotlib.rcParams['figure.figsize'] = [4,4]
@@ -162,7 +164,8 @@ def process_tracerseq_csv_to_counts(run_params):
     p1.set_xticks(np.int0(np.linspace(0, 20, num=11)), labels=np.int0(np.linspace(0, 20, num=11)))
     p1.set_xlabel('Edit Distance')
     p1.set_ylabel('# Barcode Pairs (log10)')
-    plt.legend(loc='upper right')
+    #plt.legend(loc='upper right')
+    sns.move_legend(ax, "upper left", bbox_to_anchor=(1, 1))
     plt.show()
 
     # Plot correction graph
