@@ -15,7 +15,11 @@ import clinc.clinc_util as clinc
 
 # TRACERSEQ PREPROCESSING
 
-def process_tracerseq_csv_to_counts(run_params):
+def process_tracerseq_csv_to_counts(path_to_run_params_yaml):
+
+    # load run parameters from yaml config file
+    with open(path_to_config_yaml) as f:
+      run_params = yaml.load(f, Loader=yaml.FullLoader)
 
     n_files = len(run_params['Files Dictionary'])
     print('Processing TracerSeq counts from', str(n_files), 'libraries')
@@ -252,7 +256,7 @@ def process_tracerseq_csv_to_counts(run_params):
 
     # Print and save run info
     df_params = pd.DataFrame.from_dict(run_params, orient='index', columns=[''], dtype='object')
-    df_params.to_csv(run_params['Save File Path'] + run_params['File Prefix'] +'_params.csv', index=True, header=False)
+    df_params.to_csv(run_params['Save File Path'] + run_params['File Prefix'] +'_run_params.csv', index=True, header=False)
     df_log = pd.DataFrame.from_dict(run_log, orient='index', columns=[''], dtype='object')
     df_log.to_csv(run_params['Save File Path'] + run_params['File Prefix'] + '_log.csv', index=True, header=False)
 
