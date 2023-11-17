@@ -1,5 +1,5 @@
 
-import sys, random
+import sys, random, warnings
 import numpy as np
 import pandas as pd
 import matplotlib
@@ -16,6 +16,11 @@ import clinc.clinc_util as clinc
 # TRACERSEQ PREPROCESSING
 
 def process_tracerseq_csv_to_counts(run_params):
+
+    # Configure some global settings
+    matplotlib.rcParams['figure.dpi'] = 120
+    matplotlib.rcParams['figure.figsize'] = [4,4]
+    warnings.simplefilter(action='ignore', category=FutureWarning)
 
     # Step 1: Import the entire set of TracerSeq CSV file(s) into a dataframe, appending library prefices to CB columns
     df1 = pd.DataFrame()
