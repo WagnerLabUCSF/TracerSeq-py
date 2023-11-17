@@ -18,7 +18,7 @@ import clinc.clinc_util as clinc
 def process_tracerseq_csv_to_counts(run_params):
 
     # Configure some global settings
-    matplotlib.rcParams['figure.dpi'] = 300
+    matplotlib.rcParams['figure.dpi'] = 200
     matplotlib.rcParams['figure.figsize'] = [4,4]
     warnings.simplefilter(action='ignore', category=FutureWarning)
 
