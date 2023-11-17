@@ -50,14 +50,13 @@ def process_tracerseq_csv_to_counts(run_params):
     run_log['Fraction Reads Missing Left Flank'] = round(np.sum(flag_no_left)/run_log['# TracerSeq Reads Loaded'],2)
     run_log['Fraction Reads Missing Right Flank'] = round(np.sum(flag_no_right)/run_log['# TracerSeq Reads Loaded'],2)
 
-    # Step 3: Trim the TracerSeq barcode read to remove flanking sequences
+    # Step 3: Trim and filter TracerSeq barcodes
+
+    # Step 3a: Trim the TracerSeq barcode read to remove flanking sequences 
     df1['TracerSeq'] = df1['TracerSeq'].str.split(pat=run_params['Barcode Flank Left'], expand=True)[1]
     df1['TracerSeq'] = df1['TracerSeq'].str.split(pat=run_params['Barcode Flank Right'], expand=True)[0]
     df1.rename(columns={'TracerSeq': 'TracerSeq_trimmed'}, inplace=True)
     df1['TracerSeq_barcode_length'] = df1['TracerSeq_trimmed'].str.len()
-    df1 = df1[df1['TracerSeq_barcode_length'] > 15].copy() # Filter out any severely truncated TBs (rare)
-    df1 = df1[df1['TracerSeq_barcode_length'] < 25].copy() # Filter out any severely elongated TBs (rare)
-    print('Done trimming TB barcodes (step 3/6)')
 
     # Plot a histogram of TracerSeq barcode lengths, which should be centered at 20bp
     df1['TracerSeq_barcode_length'] = df1['TracerSeq_trimmed'].str.len()
@@ -68,9 +67,15 @@ def process_tracerseq_csv_to_counts(run_params):
     ax.set_xlabel('Barcode Length (bp)')
     ax.set_ylabel('# Trimmed Barcode Reads (log)')
     plt.axvline(x = 15, color = 'red', label = 'thresh', linestyle='-', linewidth=1)
+    plt.axvline(x = 25, color = 'red', label = 'thresh', linestyle='-', linewidth=1)
     fig.tight_layout()
     plt.show()
     plt.close()
+    
+    # Step 3b: Filter out trimmed TBs that are too long or too short
+    df1 = df1[df1['TracerSeq_barcode_length'] > 15].copy() # Filter out any severely truncated TBs (rare)
+    df1 = df1[df1['TracerSeq_barcode_length'] < 25].copy() # Filter out any severely elongated TBs (rare)
+    print('Done trimming TB barcodes (step 3/6)')
 
     # Plot and filter read counts for all unique TB:CB:UMI barcode sets
     df2 = df1.value_counts(subset=['TracerSeq_trimmed', 'CB_corrected', 'UMI_raw'], sort=True).to_frame('read_counts').reset_index().copy()
