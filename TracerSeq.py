@@ -18,7 +18,7 @@ import clinc.clinc_util as clinc
 def process_tracerseq_csv_to_counts(path_to_run_params_yaml):
 
     # load run parameters from yaml config file
-    with open(path_to_config_yaml) as f:
+    with open(path_to_run_params_yaml) as f:
       run_params = yaml.load(f, Loader=yaml.FullLoader)
 
     n_files = len(run_params['Files Dictionary'])
