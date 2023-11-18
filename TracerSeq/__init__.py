@@ -1,2 +1,2 @@
-from . import analysis
-from . import preprocessing
+from .analysis import analysis
+from .preprocessing import preprocessing
