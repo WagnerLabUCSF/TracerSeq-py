@@ -1,2 +1,2 @@
-from . import analysis as an
-from . import preprocessing as pp
+import analysis as an
+import preprocessing as pp
