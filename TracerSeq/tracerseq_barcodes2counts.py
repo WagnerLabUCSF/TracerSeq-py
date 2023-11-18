@@ -12,7 +12,7 @@ import Levenshtein
 
 # TRACERSEQ PREPROCESSING
 
-def process_tracerseq_csv_to_counts(path_to_run_params_yaml):
+def tracerseq_barcodes2counts(path_to_run_params_yaml):
 
     # load run parameters from yaml config file
     with open(path_to_run_params_yaml) as f:
