@@ -5,8 +5,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-import cospar
-import clinc.clinc_util as clinc
+#import cospar
+#import clinc.clinc_util as clinc
 
 
 # TRACERSEQ ANALYSIS
